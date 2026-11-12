@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sagar Gupta — Computational Biologist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --bg2: #F5F7FC;
+    --surface: #FFFFFF;
+    --surface2: #EEF2FA;
+    --border: rgba(50,80,160,0.1);
+    --border2: rgba(50,80,160,0.18);
+    --text: #12213A;
+    --text2: #2D4460;
+    --muted: #6A85A8;
+    --accent: #1D6FD8;
+    --accent2: #0A9E82;
+    --accent3: #6B46C1;
+    --glow-blue: rgba(29,111,216,0.08);
+    --glow-teal: rgba(10,158,130,0.07);
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    box-sizing: border-box;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.65;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: env(safe-area-inset-top, 0px);
+    left: 0; right: 0; z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.9rem 3rem;
+    background: rgba(255,255,255,0.90);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+  nav ul { list-style: none; display: flex; gap: 2.2rem; }
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    transition: color 0.18s;
+  }
+  nav a:hover { color: var(--text); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 5rem;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 7rem 3rem 4rem;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: var(--accent2);
+    margin-bottom: 1.2rem;
+    text-transform: uppercase;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 20px; height: 1px;
+    background: var(--accent2);
+  }
+
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 5.5vw, 5rem);
+    line-height: 1.0;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+  }
+  .hero-name em {
+    font-style: italic;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-role {
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin: 1rem 0 1.6rem;
+    line-height: 1.6;
+  }
+  .hero-role strong { color: var(--text2); font-weight: 400; }
+
+  .hero-bio {
+    font-size: 1rem;
+    color: var(--text2);
+    max-width: 500px;
+    line-height: 1.8;
+    margin-bottom: 2.2rem;
+  }
+
+  .hero-links { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 0.55rem 1.2rem;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    text-decoration: none;
+    font-family: var(--sans);
+    cursor: pointer; border: none;
+    transition: all 0.18s;
+    letter-spacing: 0.01em;
+  }
+  .btn-solid {
+    background: var(--accent);
+    color: #fff;
+  }
+  .btn-solid:hover { opacity: 0.85; transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--text2);
+    border: 1px solid var(--border2);
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-teal {
+    background: transparent;
+    color: var(--accent2);
+    border: 1px solid rgba(62,207,171,0.3);
+  }
+  .btn-teal:hover { background: rgba(62,207,171,0.08); }
+  .btn-purple {
+    background: transparent;
+    color: var(--accent3);
+    border: 1px solid rgba(157,127,234,0.3);
+  }
+  .btn-purple:hover { background: rgba(157,127,234,0.08); }
+
+  /* ── HERO PHOTO ── */
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .photo-frame {
+    position: relative;
+    width: 300px;
+    height: 300px;
+  }
+  .photo-ring {
+    position: absolute;
+    inset: -18px;
+    border-radius: 50%;
+    border: 1px solid var(--border2);
+    animation: slowSpin 25s linear infinite;
+  }
+  .photo-ring::before {
+    content: '';
+    position: absolute;
+    top: -4px; left: 50%;
+    transform: translateX(-50%);
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+  }
+  .photo-ring2 {
+    position: absolute;
+    inset: -34px;
+    border-radius: 50%;
+    border: 1px dashed rgba(10,158,130,0.25);
+    animation: slowSpin 40s linear infinite reverse;
+  }
+  .photo-img {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top center;
+    border: 2px solid var(--border2);
+    display: block;
+    background: var(--surface2);
+  }
+  /* Fallback initials shown if img fails */
+  .photo-fallback {
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--surface2), var(--surface));
+    border: 2px solid var(--border2);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif);
+    font-size: 5rem;
+    color: var(--accent);
+    display: none;
+  }
+
+  .photo-badge {
+    position: absolute;
+    bottom: 10px; right: -10px;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: 20px;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.75rem;
+    color: var(--accent2);
+    font-weight: 500;
+    white-space: nowrap;
+    box-shadow: 0 4px 16px rgba(29,111,216,0.12);
+  }
+  .photo-badge2 {
+    position: absolute;
+    top: 20px; left: -20px;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: 20px;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.75rem;
+    color: var(--accent);
+    font-weight: 500;
+    white-space: nowrap;
+    box-shadow: 0 4px 16px rgba(29,111,216,0.12);
+  }
+
+  @keyframes slowSpin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) {
+    .photo-ring, .photo-ring2 { animation: none; }
+  }
+
+  /* ── SHARED SECTION STRUCTURE ── */
+  .section-wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 5.5rem 3rem;
+  }
+  .section-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent2);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  h2 {
+    font-family: var(--serif);
+    font-size: clamp(1.9rem, 3vw, 2.8rem);
+    color: var(--text);
+    margin-bottom: 2.8rem;
+    line-height: 1.15;
+  }
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    max-width: 100%;
+    margin: 0;
+  }
+
+  /* Alternating section stripe */
+  #webservers, #about, #conferences { background: var(--bg2); }
+  #publications, #contact, .section-wrap:has(.github-block) { background: var(--bg); }
+
+  /* ── WEBSERVERS ── */
+  .webserver-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+  .ws-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.4rem 1.5rem;
+    text-decoration: none;
+    display: block;
+    box-shadow: 0 1px 4px rgba(29,111,216,0.06);
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .ws-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px var(--glow-blue);
+  }
+  .ws-name {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+    font-family: var(--sans);
+  }
+  .ws-desc {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+  .ws-tag {
+    display: inline-block;
+    margin-top: 0.6rem;
+    font-size: 0.72rem;
+    padding: 0.15rem 0.5rem;
+    background: var(--surface2);
+    border-radius: 3px;
+    color: var(--accent2);
+  }
+
+  /* ── PUBLICATIONS ── */
+  .pub-list { display: flex; flex-direction: column; gap: 0.8rem; }
+  .pub-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.4rem 1.6rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    align-items: start;
+    box-shadow: 0 1px 4px rgba(29,111,216,0.06);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .pub-item:hover { border-color: var(--border2); }
+  .pub-title {
+    font-size: 0.93rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 0.35rem;
+    line-height: 1.45;
+  }
+  .pub-meta { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+  .pub-links { display: flex; gap: 0.5rem; margin-top: 0.5rem; flex-wrap: wrap; }
+  .pub-link {
+    font-size: 0.72rem;
+    color: var(--accent2);
+    text-decoration: none;
+    padding: 0.15rem 0.5rem;
+    border: 1px solid rgba(62,207,171,0.25);
+    border-radius: 3px;
+    transition: background 0.15s;
+  }
+  .pub-link:hover { background: rgba(62,207,171,0.1); }
+  .journal-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 110px;
+    font-size: 0.72rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 4px;
+    font-weight: 500;
+    white-space: nowrap;
+    text-align: center;
+    align-self: start;
+  }
+  .j-bioinf { background: rgba(91,164,245,0.12); color: var(--accent); }
+  .j-iscience { background: rgba(157,127,234,0.12); color: var(--accent3); }
+  .j-biorxiv { background: rgba(100,120,100,0.12); color: var(--muted); }
+  .j-plantcomm { background: rgba(62,207,171,0.1); color: var(--accent2); }
+
+  /* ── SKILLS + TIMELINE grid ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 1.8rem; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0.5rem; bottom: 0.5rem;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent2), transparent);
+  }
+  .tl-item { position: relative; margin-bottom: 2.2rem; }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -1.8rem; top: 0.42rem;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent2);
+    box-shadow: 0 0 8px var(--accent2);
+    border: 2px solid var(--bg);
+  }
+  .tl-year { font-size: 0.72rem; color: var(--accent); font-weight: 500; letter-spacing: 0.06em; margin-bottom: 0.25rem; }
+  .tl-title { font-weight: 500; color: var(--text); font-size: 0.95rem; margin-bottom: 0.15rem; }
+  .tl-where { font-size: 0.83rem; color: var(--muted); line-height: 1.5; }
+
+  /* SKILLS */
+  .skill-group-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin: 1.2rem 0 0.6rem;
+    font-weight: 500;
+  }
+  .skill-group-label:first-child { margin-top: 0; }
+  .skills-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-tag {
+    padding: 0.3rem 0.8rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 0.8rem;
+    color: var(--text2);
+  }
+  .skill-tag.hi { border-color: rgba(91,164,245,0.3); color: var(--accent); }
+  .skill-tag.hi2 { border-color: rgba(62,207,171,0.3); color: var(--accent2); }
+
+  /* ── CONFERENCES ── */
+  .conf-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .conf-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.1rem 1.4rem;
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+    box-shadow: 0 1px 4px rgba(29,111,216,0.05);
+  }
+  .conf-year {
+    font-size: 0.75rem;
+    color: var(--accent2);
+    font-weight: 500;
+    min-width: 36px;
+    padding-top: 0.1rem;
+  }
+  .conf-title { font-size: 0.88rem; color: var(--text); font-weight: 400; line-height: 1.45; }
+  .conf-where { font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; }
+
+  /* ── GITHUB SECTION ── */
+  .github-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem 2.2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .github-icon { font-size: 2.5rem; flex-shrink: 0; }
+  .github-text h3 {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+  }
+  .github-text p { font-size: 0.88rem; color: var(--muted); margin-bottom: 0.8rem; }
+  .repo-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .repo-tag {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text2);
+    text-decoration: none;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .repo-tag:hover { border-color: var(--accent3); color: var(--accent3); }
+
+  /* ── CONTACT ── */
+  #contact .section-wrap { text-align: center; }
+  .contact-sub { color: var(--text2); max-width: 500px; margin: -1.5rem auto 2.2rem; font-size: 0.95rem; }
+  .contact-cards {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+  .contact-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.6rem;
+    text-align: center;
+    text-decoration: none;
+    min-width: 160px;
+    box-shadow: 0 1px 4px rgba(29,111,216,0.07);
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .contact-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .contact-card-icon { font-size: 1.5rem; margin-bottom: 0.4rem; }
+  .contact-card-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.2rem; }
+  .contact-card-value { font-size: 0.82rem; color: var(--accent); font-weight: 500; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 1.8rem;
+    color: var(--muted);
+    font-size: 0.78rem;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 860px) {
+    nav { padding: 0.9rem 1.5rem; }
+    nav ul li:nth-child(n+4) { display: none; }
+    #hero {
+      grid-template-columns: 1fr;
+      padding: 5.5rem 1.5rem 2.5rem;
+      gap: 2.5rem;
+      text-align: center;
+    }
+    .hero-visual { order: -1; }
+    .photo-frame { width: 220px; height: 220px; }
+    .photo-img { width: 220px; height: 220px; }
+    .photo-fallback { width: 220px; height: 220px; }
+    .photo-badge { right: 0; bottom: 5px; }
+    .photo-badge2 { left: 0; top: 10px; }
+    .hero-bio { max-width: 100%; }
+    .hero-links { justify-content: center; }
+    .section-wrap { padding: 3.5rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .pub-item { grid-template-columns: 1fr; }
+    .journal-badge { width: fit-content; }
+    .github-block { flex-direction: column; gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Sagar Gupta</a>
+  <ul>
+    <li><a href="#webservers">Webservers</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#conferences">Conferences</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-text">
+    <div class="hero-eyebrow">Post-Doctoral Fellow</div>
+    <h1 class="hero-name">Sagar<br><em>Gupta</em></h1>
+    <p class="hero-role">
+      <strong>Zhang Lab · National University of Singapore</strong><br>
+      CSIR-IHBT · AcSIR (PhD) · ORCID: 0009-0001-0768-4690
+    </p>
+    <p class="hero-bio">
+      Computational biologist building deep learning systems to decode protein structure, RNA regulation, transcription factor binding, and epigenomics — from plant genomes to structural bioinformatics at NUS.
+    </p>
+    <div class="hero-links">
+      <a href="https://scholar.google.com/citations?user=9hiSJDYAAAAJ" target="_blank" class="btn btn-solid">Google Scholar</a>
+      <a href="https://orcid.org/0009-0001-0768-4690" target="_blank" class="btn btn-outline">ORCID</a>
+      <a href="https://github.com/SCBB-LAB" target="_blank" class="btn btn-teal">GitHub</a>
+      <a href="https://zhanggroup.org/people/" target="_blank" class="btn btn-outline">Zhang Lab</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="photo-frame">
+      <div class="photo-ring"></div>
+      <div class="photo-ring2"></div>
+      <img
+        class="photo-img"
+        src="image.jpg"
+        alt="Sagar Gupta"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+      />
+      <div class="photo-fallback">SG</div>
+      <div class="photo-badge">🧬 Zhang Lab, NUS</div>
+      <div class="photo-badge2">🤖 Deep Learning</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- WEBSERVERS -->
+<div id="webservers" class="section-wrap">
+  <div class="section-label">Tools & Resources</div>
+  <h2>Web servers</h2>
+  <div class="webserver-grid">
+
+    <a href="https://scbb.ihbt.res.in/PTFSpot/" target="_blank" class="ws-card">
+      <div class="ws-name">PTFSpot</div>
+      <div class="ws-desc">Deep co-learning on transcription factors and binding regions — species-universal TF binding site discovery in plants.</div>
+      <span class="ws-tag">Briefings in Bioinformatics 2024</span>
+    </a>
+
+    <a href="https://scbb.ihbt.res.in/PTF-Vac/index.php" target="_blank" class="ws-card">
+      <div class="ws-name">PTF-Vāc</div>
+      <div class="ws-desc">Explainable & generative deep co-learning encoders-decoders for ab-initio discovery of plant TF binding sites.</div>
+      <span class="ws-tag">Plant Communications 2025</span>
+    </a>
+
+    <a href="https://scbb.ihbt.res.in/DMRU/" target="_blank" class="ws-card">
+      <div class="ws-name">DMRU</div>
+      <div class="ws-desc">Generative deep learning to unravel condition-specific cytosine methylation in plants — alternative to bisulfite sequencing.</div>
+      <span class="ws-tag">Briefings in Bioinformatics 2025</span>
+    </a>
+
+    <a href="https://hichicob.ihbt.res.in/ctfbind/" target="_blank" class="ws-card">
+      <div class="ws-name">CTF-BIND</div>
+      <div class="ws-desc">Resource and software portal to detect abiotic stress-specific regulation of genes and spatiotemporal study of TFs.</div>
+      <span class="ws-tag">Web server</span>
+    </a>
+
+    <a href="https://scbb.ihbt.res.in/miWords/index.php" target="_blank" class="ws-card">
+      <div class="ws-name">miWords</div>
+      <div class="ws-desc">Transformer-based composite deep learning for highly accurate discovery of pre-miRNA regions across plant genomes.</div>
+      <span class="ws-tag">Briefings in Bioinformatics 2023</span>
+    </a>
+
+    <a href="https://scbb.ihbt.res.in/miRbiom-webserver/" target="_blank" class="ws-card">
+      <div class="ws-name">miRbiom</div>
+      <div class="ws-desc">Machine learning on Bayesian causal nets of RBP-miRNA interactions for quantitative miRNA profile prediction.</div>
+      <span class="ws-tag">Web server</span>
+    </a>
+
+    <a href="https://scbb.ihbt.res.in/DeepPlnc/" target="_blank" class="ws-card">
+      <div class="ws-name">DeepPlnc</div>
+      <div class="ws-desc">Bi-modal deep learning for highly accurate identification of plant long non-coding RNAs across diverse species.</div>
+      <span class="ws-tag">Genomics 2022</span>
+    </a>
+
+    <a href="https://scbb.ihbt.res.in/SCBB_dept/Software.php" target="_blank" class="ws-card">
+      <div class="ws-name">All tools →</div>
+      <div class="ws-desc">Browse the full SCBB lab software & webserver portal at CSIR-IHBT.</div>
+      <span class="ws-tag">SCBB Lab</span>
+    </a>
+
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- PUBLICATIONS -->
+<div id="publications" class="section-wrap">
+  <div class="section-label">Selected Works</div>
+  <h2>Publications</h2>
+  <div class="pub-list">
+
+    <div class="pub-item">
+      <div>
+        <div class="pub-title">PTF-Vāc: an explainable and generative deep co-learning encoders-decoders system for ab-initio discovery of plant transcription factor binding sites</div>
+        <div class="pub-meta">Sagar Gupta, Jyoti, Umesh Bhati, Veerbhan Kesarwani, Akanksha Sharma, Ravi Shankar · 2025</div>
+        <div class="pub-links">
+          <a href="https://scbb.ihbt.res.in/PTF-Vac/index.php" target="_blank" class="pub-link">Webserver</a>
+        </div>
+      </div>
+      <span class="journal-badge j-plantcomm">Plant Communications</span>
+    </div>
+
+    <div class="pub-item">
+      <div>
+        <div class="pub-title">DMRU: generative deep learning to unravel condition-specific cytosine methylation in plants</div>
+        <div class="pub-meta">Sagar Gupta, Anchit Kumar, Veerbhan Kesarwani, Ravi Shankar · 2025</div>
+        <div class="pub-links">
+          <a href="https://scbb.ihbt.res.in/DMRU/" target="_blank" class="pub-link">Webserver</a>
+          <a href="https://academic.oup.com/bib/article/26/6/bbaf579/8317202" target="_blank" class="pub-link">DOI</a>
+        </div>
+      </div>
+      <span class="journal-badge j-bioinf">Briefings in Bioinformatics</span>
+    </div>
+
+    <div class="pub-item">
+      <div>
+        <div class="pub-title">PTFSpot: deep co-learning on transcription factors and their binding regions attains impeccable universality in plants</div>
+        <div class="pub-meta">Sagar Gupta, Veerbhan Kesarwani, Umesh Bhati, Jyoti, Ravi Shankar · 2024</div>
+        <div class="pub-links">
+          <a href="https://scbb.ihbt.res.in/PTFSpot/" target="_blank" class="pub-link">Webserver</a>
+          <a href="https://github.com/SCBB-LAB/PTFSpot" target="_blank" class="pub-link">GitHub</a>
+          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11250369" target="_blank" class="pub-link">PMC</a>
+        </div>
+      </div>
+      <span class="journal-badge j-bioinf">Briefings in Bioinformatics</span>
+    </div>
+
+    <div class="pub-item">
+      <div>
+        <div class="pub-title">miWords: transformer-based composite deep learning for highly accurate discovery of pre-miRNA regions across plant genomes</div>
+        <div class="pub-meta">Sagar Gupta, Ravi Shankar · 2023</div>
+        <div class="pub-links">
+          <a href="https://scbb.ihbt.res.in/miWords/index.php" target="_blank" class="pub-link">Webserver</a>
+        </div>
+      </div>
+      <span class="journal-badge j-bioinf">Briefings in Bioinformatics</span>
+    </div>
+
+    <div class="pub-item">
+      <div>
+        <div class="pub-title">RBPSpot: deep learning on appropriate contextual information for RBP binding sites discovery</div>
+        <div class="pub-meta">Nitesh Kumar Sharma, Sagar Gupta, Ashwani Kumar, Prakash Kumar, Upendra Kumar Pradhan, Ravi Shankar · 2021</div>
+        <div class="pub-links">
+          <a href="https://github.com/SCBB-LAB/RBPSpot" target="_blank" class="pub-link">GitHub</a>
+        </div>
+      </div>
+      <span class="journal-badge j-iscience">iScience</span>
+    </div>
+
+    <div class="pub-item">
+      <div>
+        <div class="pub-title">miRbiom: machine-learning on Bayesian causal nets of RBP-miRNA interactions successfully predicts miRNA profiles</div>
+        <div class="pub-meta">Upendra Kumar Pradhan, Nitesh Kumar Sharma, Prakash Kumar, Ashwani Kumar, Sagar Gupta, Ravi Shankar · 2020</div>
+        <div class="pub-links">
+          <a href="https://scbb.ihbt.res.in/miRbiom-webserver/" target="_blank" class="pub-link">Webserver</a>
+          <a href="https://github.com/SCBB-LAB/miRbiom" target="_blank" class="pub-link">GitHub</a>
+        </div>
+      </div>
+      <span class="journal-badge j-biorxiv">Preprint</span>
+    </div>
+
+    <div class="pub-item">
+      <div>
+        <div class="pub-title">RBPLight: a computational tool for discovery of plant-specific RNA-binding proteins using light gradient boosting machine and ensemble of evolutionary features</div>
+        <div class="pub-meta">Upendra K. Pradhan, Sagar Gupta, et al.</div>
+      </div>
+      <span class="journal-badge j-bioinf">Briefings in Functional Genomics</span>
+    </div>
+
+  </div>
+  <div style="margin-top:1.6rem;">
+    <a href="https://scholar.google.com/citations?user=9hiSJDYAAAAJ" target="_blank" class="btn btn-outline">View all on Google Scholar</a>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ABOUT: SKILLS + TIMELINE -->
+<div id="about" class="section-wrap">
+  <div class="about-grid">
+
+    <div>
+      <div class="section-label">Background</div>
+      <h2>Career</h2>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-year">2023 — Present</div>
+          <div class="tl-title">Post-Doctoral Fellow</div>
+          <div class="tl-where">Zhang Lab, Dept. of Biochemistry & Computer Science<br>National University of Singapore</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">~2018 — 2023</div>
+          <div class="tl-title">PhD Researcher</div>
+          <div class="tl-where">Studio of Computational Biology & Bioinformatics (SCBB)<br>CSIR-IHBT, Palampur · AcSIR, Ghaziabad</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-label">Toolkit</div>
+      <h2>Skills</h2>
+      <div class="skill-group-label">Deep Learning & AI</div>
+      <div class="skills-row">
+        <span class="skill-tag hi">Transformers / Attention</span>
+        <span class="skill-tag hi">Generative Deep Learning</span>
+        <span class="skill-tag hi">CNN</span>
+        <span class="skill-tag hi">XGBoost / GBM</span>
+        <span class="skill-tag">Bayesian Networks</span>
+        <span class="skill-tag">PyTorch</span>
+        <span class="skill-tag">TensorFlow</span>
+      </div>
+      <div class="skill-group-label">Bioinformatics Domains</div>
+      <div class="skills-row">
+        <span class="skill-tag hi2">Protein Structure</span>
+        <span class="skill-tag hi2">miRNA Biology</span>
+        <span class="skill-tag hi2">TF Binding (TFBS)</span>
+        <span class="skill-tag hi2">Epigenomics / Methylation</span>
+        <span class="skill-tag hi2">RNA-binding Proteins</span>
+        <span class="skill-tag hi2">lncRNA</span>
+      </div>
+      <div class="skill-group-label">Data & Infrastructure</div>
+      <div class="skills-row">
+        <span class="skill-tag">RNA-seq / CLIP-seq / WGBS</span>
+        <span class="skill-tag">Linux / HPC</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">R</span>
+        <span class="skill-tag">Web server dev</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- GITHUB -->
+<div class="section-wrap">
+  <div class="section-label">Open Source</div>
+  <h2>GitHub</h2>
+  <div class="github-block">
+    <div class="github-icon">🐙</div>
+    <div class="github-text" style="flex:1">
+      <h3>SCBB-LAB</h3>
+      <p>Open-source code for all tools developed at the Studio of Computational Biology & Bioinformatics, CSIR-IHBT — available for standalone use, reproducibility, and further research.</p>
+      <div class="repo-tags">
+        <a href="https://github.com/SCBB-LAB/PTFSpot" target="_blank" class="repo-tag">PTFSpot</a>
+        <a href="https://github.com/SCBB-LAB/miRbiom" target="_blank" class="repo-tag">miRbiom</a>
+        <a href="https://github.com/SCBB-LAB/RBPSpot" target="_blank" class="repo-tag">RBPSpot</a>
+        <a href="https://github.com/SCBB-LAB/DeepPlnc" target="_blank" class="repo-tag">DeepPlnc</a>
+        <a href="https://github.com/SCBB-LAB/Comparative-analysis-of-plant-TFBS-software" target="_blank" class="repo-tag">TFBS Benchmark</a>
+        <a href="https://github.com/SCBB-LAB" target="_blank" class="repo-tag">View all →</a>
+      </div>
+    </div>
+    <a href="https://github.com/SCBB-LAB" target="_blank" class="btn btn-teal" style="flex-shrink:0">github.com/SCBB-LAB</a>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- CONFERENCES -->
+<div id="conferences" class="section-wrap">
+  <div class="section-label">Talks & Presentations</div>
+  <h2>Conferences</h2>
+  <div class="conf-list">
+
+    <div class="conf-item">
+      <div class="conf-year">2025</div>
+      <div>
+        <div class="conf-title">9th International Conference on Computational Biology and Bioinformatics (ICCBB 2025)</div>
+        <div class="conf-where">Japan · Travel grant recipient (CSIRHRDG)</div>
+      </div>
+    </div>
+
+    <div class="conf-item">
+      <div class="conf-year">2024</div>
+      <div>
+        <div class="conf-title">PTFSpot — presentation on transcription factor binding universality in plants</div>
+        <div class="conf-where">Associated with Briefings in Bioinformatics publication</div>
+      </div>
+    </div>
+
+    <div class="conf-item">
+      <div class="conf-year">2023</div>
+      <div>
+        <div class="conf-title">miWords — transformer-based pre-miRNA discovery across plant genomes</div>
+        <div class="conf-where">Presented alongside Briefings in Bioinformatics 2023 publication · SCBB Lab, CSIR-IHBT</div>
+      </div>
+    </div>
+
+    <div class="conf-item">
+      <div class="conf-year">2022</div>
+      <div>
+        <div class="conf-title">Workshop & conference presentations on deep learning in plant genomics</div>
+        <div class="conf-where">SCBB Lab, CSIR-IHBT · HiCHiCoB, Palampur</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- CONTACT -->
+<div id="contact">
+  <div class="section-wrap">
+    <div class="section-label">Get in touch</div>
+    <h2>Contact</h2>
+    <p class="contact-sub">Open to collaborations in structural bioinformatics, plant genomics AI, and deep learning for molecular biology.</p>
+    <div class="contact-cards">
+      <a href="mailto:sagar_gupta_26@nus.edu.sg" class="contact-card">
+        <div class="contact-card-icon">✉️</div>
+        <div class="contact-card-label">Email</div>
+        <div class="contact-card-value">NUS</div>
+      </a>
+      <a href="https://scholar.google.com/citations?user=9hiSJDYAAAAJ" target="_blank" class="contact-card">
+        <div class="contact-card-icon">🎓</div>
+        <div class="contact-card-label">Google Scholar</div>
+        <div class="contact-card-value">Publications</div>
+      </a>
+      <a href="https://orcid.org/0009-0001-0768-4690" target="_blank" class="contact-card">
+        <div class="contact-card-icon">🔬</div>
+        <div class="contact-card-label">ORCID</div>
+        <div class="contact-card-value">0009-0001-0768-4690</div>
+      </a>
+      <a href="https://github.com/SCBB-LAB" target="_blank" class="contact-card">
+        <div class="contact-card-icon">🐙</div>
+        <div class="contact-card-label">GitHub</div>
+        <div class="contact-card-value">SCBB-LAB</div>
+      </a>
+      <a href="https://zhanggroup.org/people/" target="_blank" class="contact-card">
+        <div class="contact-card-icon">🧪</div>
+        <div class="contact-card-label">Current Lab</div>
+        <div class="contact-card-value">Zhang Lab, NUS</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Sagar Gupta · Post-Doctoral Fellow, Zhang Lab, National University of Singapore · sagar_gupta_26@nus.edu.sg
+</footer>
+
+</body>
+</html>
